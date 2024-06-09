@@ -11,12 +11,13 @@ interface CountryService {
 
 data class Country(
     val name: String,
-    val alpha3Code: String,
-    val region: String,
-    val population: Long,
+    val capital: String?,
     val flags: Flags,
-    val currencies: List<Currency>,
-    val languages: List<Language>
+    val alpha3Code: String? = null,
+    val region: String? = null,
+    val population: Long? = null,
+    val currencies: List<Currency>? = null,
+    val languages: List<Language>? = null
 )
 
 data class Flags(
@@ -25,14 +26,14 @@ data class Flags(
 )
 
 data class Currency(
-    val code: String,
-    val name: String,
-    val symbol: String
+    val code: String? = null,
+    val name: String? = null,
+    val symbol: String? = null
 )
 
 data class Language(
-    val iso639_1: String,
-    val iso639_2: String,
-    val name: String,
-    val nativeName: String
+    val iso639_1: String? = null,
+    val iso639_2: String? = null,
+    val name: String? = null,
+    val nativeName: String? = null
 )
