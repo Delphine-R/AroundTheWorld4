@@ -1,4 +1,4 @@
-package fr.epf.min1.test
+package fr.epf.min1.test.api
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import fr.epf.min1.test.R
 
 class CountriesAdapter : RecyclerView.Adapter<CountriesAdapter.CountryViewHolder>() {
 

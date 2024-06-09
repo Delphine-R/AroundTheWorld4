@@ -1,15 +1,19 @@
-package fr.epf.min1.test
+package fr.epf.min1.test.Fragments
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import fr.epf.min1.test.R
 import fr.epf.min1.test.api.CountriesAdapter
 import fr.epf.min1.test.api.Country
 import fr.epf.min1.test.api.CountryService
@@ -22,7 +26,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
-class HomeActivity : AppCompatActivity() {
+class SearchFragment : Fragment() {
 
     private lateinit var countryAPI: CountryService
     private lateinit var searchEditText: EditText
@@ -30,9 +34,11 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var countriesRecyclerView: RecyclerView
     private lateinit var countriesAdapter: CountriesAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_search)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.fragment_search, container, false)
 
         val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
@@ -56,12 +62,12 @@ class HomeActivity : AppCompatActivity() {
             .build()
 
         countryAPI = retrofit.create(CountryService::class.java)
-        Log.d("HomeActivity", "Retrofit initialized")
+        Log.d("SearchFragment", "Retrofit initialized")
 
-        searchEditText = findViewById(R.id.searchEditText)
-        searchButton = findViewById(R.id.searchButton)
-        countriesRecyclerView = findViewById(R.id.countriesRecyclerView)
-        countriesRecyclerView.layoutManager = LinearLayoutManager(this)
+        searchEditText = view.findViewById(R.id.searchEditText)
+        searchButton = view.findViewById(R.id.searchButton)
+        countriesRecyclerView = view.findViewById(R.id.countriesRecyclerView)
+        countriesRecyclerView.layoutManager = LinearLayoutManager(context)
         countriesAdapter = CountriesAdapter()
         countriesRecyclerView.adapter = countriesAdapter
 
@@ -70,9 +76,11 @@ class HomeActivity : AppCompatActivity() {
             if (countryName.isNotBlank()) {
                 searchCountry(countryName)
             } else {
-                Toast.makeText(this, "Please enter a country name", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Please enter a country name", Toast.LENGTH_SHORT).show()
             }
         }
+
+        return view
     }
 
     private fun searchCountry(countryName: String) {
@@ -83,15 +91,15 @@ class HomeActivity : AppCompatActivity() {
                     if (countries != null && countries.isNotEmpty()) {
                         countriesAdapter.setCountries(countries)
                     } else {
-                        Toast.makeText(this@HomeActivity, "Country not found", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Country not found", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    Toast.makeText(this@HomeActivity, "Response error", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Response error", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<List<Country>>, t: Throwable) {
-                Toast.makeText(this@HomeActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }

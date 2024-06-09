@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">test</string>
     <string name="recherche">recherche</string>
+    <string name="search">Search</string>
+    <string name="favorites">Favorites</string>
+    <string name="play">Play</string>
 </resources>
