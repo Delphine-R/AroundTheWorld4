@@ -1,17 +1,15 @@
 package fr.epf.min1.test
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface PaysService {
+interface CountryService {
     @GET("name/{name}")
-    fun getCountriesByName(@Path("name") name: String): Call<List<Pays>>
+    fun getCountriesByName(@Path("name") name: String): Call<List<Country>>
 }
 
-data class Pays(
+data class Country(
     val name: String,
     val alpha3Code: String,
     val region: String,

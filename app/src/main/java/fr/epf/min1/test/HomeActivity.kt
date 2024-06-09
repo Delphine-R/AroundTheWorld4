@@ -22,9 +22,9 @@ import java.util.concurrent.TimeUnit
 
 class HomeActivity : AppCompatActivity() {
 
-    private lateinit var paysAPI: PaysService
-    private lateinit var paysText: TextView
-    private lateinit var drapeauImageView: ImageView
+    private lateinit var countryAPI: CountryService
+    private lateinit var countryText: TextView
+    private lateinit var flagImageView: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,12 +51,12 @@ class HomeActivity : AppCompatActivity() {
             .client(client)
             .build()
 
-        paysAPI = retrofit.create(PaysService::class.java)
+        countryAPI = retrofit.create(CountryService::class.java)
         Log.d("HomeActivity", "Retrofit initialized")
 
         // Initialisation des vues
-        paysText = findViewById(R.id.nom)
-        drapeauImageView = findViewById(R.id.drapeau)
+        countryText = findViewById(R.id.name)
+        flagImageView = findViewById(R.id.flag)
 
         val searchButton = findViewById<Button>(R.id.searchButton)
         searchButton.setOnClickListener {
@@ -65,8 +65,8 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun searchCountry(countryName: String) {
-        paysAPI.getCountriesByName(countryName).enqueue(object : Callback<List<Pays>> {
-            override fun onResponse(call: Call<List<Pays>>, response: Response<List<Pays>>) {
+        countryAPI.getCountriesByName(countryName).enqueue(object : Callback<List<Country>> {
+            override fun onResponse(call: Call<List<Country>>, response: Response<List<Country>>) {
                 if (response.isSuccessful) {
                     val countries = response.body()
                     if (countries != null && countries.isNotEmpty()) {
@@ -80,21 +80,21 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<List<Pays>>, t: Throwable) {
+            override fun onFailure(call: Call<List<Country>>, t: Throwable) {
                 Toast.makeText(this@HomeActivity, "Erreur : ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }
 
-    private fun displayCountry(country: Pays) {
+    private fun displayCountry(country: Country) {
         val countryName = country.name
         val countryFlagUrl = country.flags.png
 
         // Afficher le nom du pays
-        paysText.text = countryName
+        countryText.text = countryName
 
         // Charger et afficher le drapeau du pays
-        Picasso.get().load(countryFlagUrl).into(drapeauImageView)
+        Picasso.get().load(countryFlagUrl).into(flagImageView)
     }
 
 }
