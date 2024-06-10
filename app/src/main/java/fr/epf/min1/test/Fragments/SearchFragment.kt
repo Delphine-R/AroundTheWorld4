@@ -17,6 +17,7 @@ import fr.epf.min1.test.R
 import fr.epf.min1.test.api.CountriesAdapter
 import fr.epf.min1.test.api.Country
 import fr.epf.min1.test.api.CountryService
+import fr.epf.min1.test.favorites.FavoritesManager
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -24,7 +25,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import java.util.concurrent.TimeUnit
 
 class SearchFragment : Fragment() {
 
@@ -67,7 +67,7 @@ class SearchFragment : Fragment() {
         countriesRecyclerView.layoutManager = LinearLayoutManager(context)
         countriesAdapter = CountriesAdapter(
             onItemClick = { country -> onCountryClicked(country) },
-            onFavoriteClicked = { onFavoriteClicked() }
+            onFavoriteClicked = { country -> onFavoriteClicked(country) }
         )
         countriesRecyclerView.adapter = countriesAdapter
 
@@ -112,7 +112,8 @@ class SearchFragment : Fragment() {
             .commit()
     }
 
-    private fun onFavoriteClicked() {
+    private fun onFavoriteClicked(country: Country) {
+        FavoritesManager.saveFavoriteCountry(requireContext(), country)
         val favoritesFragment = FavoritesFragment()
         parentFragmentManager.beginTransaction()
             .replace(R.id.container, favoritesFragment)
