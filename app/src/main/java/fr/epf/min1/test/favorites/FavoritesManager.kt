@@ -19,9 +19,15 @@ object FavoritesManager {
         try {
             val sharedPreferences = context.getSharedPreferences("favorites", Context.MODE_PRIVATE)
             val favorites = getFavoriteCountries(context).toMutableList()
-            favorites.add(country)
-            val json = jsonAdapter.toJson(favorites)
-            sharedPreferences.edit().putString(FAVORITES_KEY, json).apply()
+
+            if (!favorites.contains(country)) {
+                favorites.add(country)
+                val json = jsonAdapter.toJson(favorites)
+                sharedPreferences.edit().putString(FAVORITES_KEY, json).apply()
+            } else {
+                Log.d("FavoritesManager", "Country ${country.name} is already in favorites.")
+            }
+
         } catch (e: Exception) {
             Log.e("FavoritesManager", "Error saving favorite country", e)
         }
