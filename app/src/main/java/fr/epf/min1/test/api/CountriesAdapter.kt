@@ -39,8 +39,8 @@ class CountriesAdapter(
     inner class CountryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val countryNameTextView: TextView = itemView.findViewById(R.id.countryNameTextView)
         private val countryFlagImageView: ImageView = itemView.findViewById(R.id.countryFlagImageView)
-        private val detailsButton: Button = itemView.findViewById(R.id.country_details_button)
-        private val favoriteButton: Button = itemView.findViewById(R.id.favorite_button)
+        private val detailsButton: ImageView = itemView.findViewById(R.id.country_details_button)
+        private val favoriteButton: ImageView = itemView.findViewById(R.id.favorite_button)
 
         fun bind(country: Country) {
             countryNameTextView.text = country.name

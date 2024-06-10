@@ -114,10 +114,5 @@ class SearchFragment : Fragment() {
 
     private fun onFavoriteClicked(country: Country) {
         FavoritesManager.saveFavoriteCountry(requireContext(), country)
-        val favoritesFragment = FavoritesFragment()
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.container, favoritesFragment)
-            .addToBackStack(null)
-            .commit()
     }
 }

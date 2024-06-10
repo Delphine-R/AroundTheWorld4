@@ -16,31 +16,34 @@
 
     <TextView
         android:id="@+id/countryNameTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:textSize="25sp"
         app:layout_constraintStart_toEndOf="@id/countryFlagImageView"
-        app:layout_constraintTop_toTopOf="@id/countryFlagImageView"
-        app:layout_constraintBottom_toBottomOf="@id/countryFlagImageView" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/country_details_button"
+        app:layout_constraintHorizontal_bias="0" />
 
-    <Button
+    <ImageView
         android:id="@+id/country_details_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Details"
-        app:layout_constraintStart_toEndOf="@id/countryNameTextView"
-        app:layout_constraintTop_toTopOf="@id/countryFlagImageView"
-        app:layout_constraintBottom_toBottomOf="@id/countryFlagImageView" />
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="16dp"
+        app:srcCompat="@drawable/ic_details"
+        app:layout_constraintEnd_toStartOf="@id/favorite_button"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
-    <Button
+    <ImageView
         android:id="@+id/favorite_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add to Favorites"
-        app:layout_constraintStart_toEndOf="@id/country_details_button"
-        app:layout_constraintTop_toTopOf="@id/countryFlagImageView"
-        app:layout_constraintBottom_toBottomOf="@id/countryFlagImageView" />
-
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="16dp"
+        app:srcCompat="@drawable/ic_favorites"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
