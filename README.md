@@ -5,7 +5,7 @@ This is an Android application developed using Kotlin and Java, built with Gradl
 # Screens Overview
 
 ## PlayScreen
-- Empty.
+- JustDance high tech
 
 ## Search Screen
 - (Default Screen)
