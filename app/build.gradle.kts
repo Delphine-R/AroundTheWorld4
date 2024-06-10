@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.parcelize")
 }
 
 android {
@@ -50,7 +51,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("com.squareup.picasso:picasso:2.71828")
     implementation ("org.jetbrains.kotlin:kotlin-stdlib:1.8.0")
-    implementation ("org.jetbrains.kotlin:kotlin-parcelize-runtime:1.8.0")
+    implementation ("org.jetbrains.kotlin:kotlin-parcelize-runtime:1.9.22")
 
     implementation(platform("androidx.compose:compose-bom:2023.08.00"))
     implementation("androidx.compose.ui:ui:1.4.3")

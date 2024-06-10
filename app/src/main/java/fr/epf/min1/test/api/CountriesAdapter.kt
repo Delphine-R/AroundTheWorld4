@@ -9,17 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import fr.epf.min1.test.R
 
-class CountriesAdapter : RecyclerView.Adapter<CountriesAdapter.CountryViewHolder>() {
+class CountriesAdapter(private val onItemClick: (Country) -> Unit) : RecyclerView.Adapter<CountriesAdapter.CountryViewHolder>() {
 
     private var countries: List<Country> = emptyList()
 
     fun setCountries(countries: List<Country>) {
         this.countries = countries
-        notifyDataSetChanged()
-    }
-
-    fun clear() {
-        countries.run { clear() }
         notifyDataSetChanged()
     }
 
@@ -37,13 +32,17 @@ class CountriesAdapter : RecyclerView.Adapter<CountriesAdapter.CountryViewHolder
         return countries.size
     }
 
-    class CountryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class CountryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val countryNameTextView: TextView = itemView.findViewById(R.id.countryNameTextView)
         private val countryFlagImageView: ImageView = itemView.findViewById(R.id.countryFlagImageView)
 
         fun bind(country: Country) {
             countryNameTextView.text = country.name
             Picasso.get().load(country.flags.png).into(countryFlagImageView)
+
+            itemView.setOnClickListener {
+                onItemClick(country)
+            }
         }
     }
 }

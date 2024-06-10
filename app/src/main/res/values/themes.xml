@@ -16,5 +16,6 @@
         <item name="colorOnSecondary">#141E46</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="fontFamily">@font/dm_serif_text_regular</item>
     </style>
 </resources>

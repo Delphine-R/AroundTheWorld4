@@ -46,9 +46,6 @@ class SearchFragment : Fragment() {
 
         val client = OkHttpClient.Builder()
             .addInterceptor(httpLoggingInterceptor)
-            .connectTimeout(15, TimeUnit.SECONDS)
-            .readTimeout(15, TimeUnit.SECONDS)
-            .writeTimeout(15, TimeUnit.SECONDS)
             .build()
 
         val moshi = Moshi.Builder()
@@ -68,7 +65,7 @@ class SearchFragment : Fragment() {
         searchButton = view.findViewById(R.id.searchButton)
         countriesRecyclerView = view.findViewById(R.id.countriesRecyclerView)
         countriesRecyclerView.layoutManager = LinearLayoutManager(context)
-        countriesAdapter = CountriesAdapter()
+        countriesAdapter = CountriesAdapter { country -> onCountryClicked(country) }
         countriesRecyclerView.adapter = countriesAdapter
 
         searchButton.setOnClickListener {
@@ -102,5 +99,13 @@ class SearchFragment : Fragment() {
                 Toast.makeText(context, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun onCountryClicked(country: Country) {
+        val detailsFragment = DetailsFragment.newInstance(country)
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.container, detailsFragment)
+            .addToBackStack(null)
+            .commit()
     }
 }

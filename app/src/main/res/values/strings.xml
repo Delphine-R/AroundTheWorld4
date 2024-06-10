@@ -4,4 +4,7 @@
     <string name="search">Search</string>
     <string name="favorites">Favorites</string>
     <string name="play">Play</string>
+    <string name="enter_country_name">Enter country name</string>
+    <string name="search_button_text">Search</string>
+    <string name="country_flag">country_flag_alt</string>
 </resources>
