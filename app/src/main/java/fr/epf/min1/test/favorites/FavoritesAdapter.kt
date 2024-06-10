@@ -1,4 +1,5 @@
 package fr.epf.min1.test.favorites
+// In FavoritesAdapter.kt
 
 import android.view.LayoutInflater
 import android.view.View
@@ -13,10 +14,15 @@ import fr.epf.min1.test.api.Country
 class FavoritesAdapter : RecyclerView.Adapter<FavoritesAdapter.FavoriteViewHolder>() {
 
     private var favoriteCountries: List<Country> = emptyList()
+    private lateinit var onDeleteClickListener: (Country) -> Unit
 
     fun setFavoriteCountries(favoriteCountries: List<Country>) {
         this.favoriteCountries = favoriteCountries
         notifyDataSetChanged()
+    }
+
+    fun setOnDeleteClickListener(listener: (Country) -> Unit) {
+        onDeleteClickListener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
@@ -36,10 +42,15 @@ class FavoritesAdapter : RecyclerView.Adapter<FavoritesAdapter.FavoriteViewHolde
     inner class FavoriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val countryNameTextView: TextView = itemView.findViewById(R.id.countryNameTextView)
         private val countryFlagImageView: ImageView = itemView.findViewById(R.id.countryFlagImageView)
+        private val deleteButton: ImageView = itemView.findViewById(R.id.deleteButton)
 
         fun bind(country: Country) {
             countryNameTextView.text = country.name
             Picasso.get().load(country.flags.png).into(countryFlagImageView)
+
+            deleteButton.setOnClickListener {
+                onDeleteClickListener.invoke(country)
+            }
         }
     }
 }

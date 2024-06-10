@@ -29,4 +29,12 @@ object FavoritesManager {
             jsonAdapter.fromJson(it) ?: emptyList()
         } ?: emptyList()
     }
+
+    fun removeFavoriteCountry(context: Context, country: Country) {
+        val sharedPreferences = context.getSharedPreferences("favorites", Context.MODE_PRIVATE)
+        val favorites = getFavoriteCountries(context).toMutableList()
+        favorites.remove(country)
+        val json = jsonAdapter.toJson(favorites)
+        sharedPreferences.edit().putString(FAVORITES_KEY, json).apply()
+    }
 }
