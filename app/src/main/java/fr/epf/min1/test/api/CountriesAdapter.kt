@@ -18,6 +18,11 @@ class CountriesAdapter : RecyclerView.Adapter<CountriesAdapter.CountryViewHolder
         notifyDataSetChanged()
     }
 
+    fun clear() {
+        countries.run { clear() }
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_country, parent, false)
         return CountryViewHolder(view)
