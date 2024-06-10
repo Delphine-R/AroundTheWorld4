@@ -1,6 +1,7 @@
 package fr.epf.min1.test.favorites
 
 import android.content.Context
+import android.util.Log
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.squareup.moshi.Types
@@ -15,26 +16,39 @@ object FavoritesManager {
     private val jsonAdapter = moshi.adapter<List<Country>>(listType)
 
     fun saveFavoriteCountry(context: Context, country: Country) {
-        val sharedPreferences = context.getSharedPreferences("favorites", Context.MODE_PRIVATE)
-        val favorites = getFavoriteCountries(context).toMutableList()
-        favorites.add(country)
-        val json = jsonAdapter.toJson(favorites)
-        sharedPreferences.edit().putString(FAVORITES_KEY, json).apply()
+        try {
+            val sharedPreferences = context.getSharedPreferences("favorites", Context.MODE_PRIVATE)
+            val favorites = getFavoriteCountries(context).toMutableList()
+            favorites.add(country)
+            val json = jsonAdapter.toJson(favorites)
+            sharedPreferences.edit().putString(FAVORITES_KEY, json).apply()
+        } catch (e: Exception) {
+            Log.e("FavoritesManager", "Error saving favorite country", e)
+        }
     }
 
     fun getFavoriteCountries(context: Context): List<Country> {
-        val sharedPreferences = context.getSharedPreferences("favorites", Context.MODE_PRIVATE)
-        val json = sharedPreferences.getString(FAVORITES_KEY, null)
-        return json?.let {
-            jsonAdapter.fromJson(it) ?: emptyList()
-        } ?: emptyList()
+        try {
+            val sharedPreferences = context.getSharedPreferences("favorites", Context.MODE_PRIVATE)
+            val json = sharedPreferences.getString(FAVORITES_KEY, null)
+            return json?.let {
+                jsonAdapter.fromJson(it) ?: emptyList()
+            } ?: emptyList()
+        } catch (e: Exception) {
+            Log.e("FavoritesManager", "Error getting favorite countries", e)
+            return emptyList()
+        }
     }
 
     fun removeFavoriteCountry(context: Context, country: Country) {
-        val sharedPreferences = context.getSharedPreferences("favorites", Context.MODE_PRIVATE)
-        val favorites = getFavoriteCountries(context).toMutableList()
-        favorites.remove(country)
-        val json = jsonAdapter.toJson(favorites)
-        sharedPreferences.edit().putString(FAVORITES_KEY, json).apply()
+        try {
+            val sharedPreferences = context.getSharedPreferences("favorites", Context.MODE_PRIVATE)
+            val favorites = getFavoriteCountries(context).toMutableList()
+            favorites.remove(country)
+            val json = jsonAdapter.toJson(favorites)
+            sharedPreferences.edit().putString(FAVORITES_KEY, json).apply()
+        } catch (e: Exception) {
+            Log.e("FavoritesManager", "Error removing favorite country", e)
+        }
     }
 }

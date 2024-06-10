@@ -25,6 +25,14 @@ class FavoritesFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         favoritesAdapter = FavoritesAdapter()
         recyclerView.adapter = favoritesAdapter
+
+
+        favoritesAdapter.setOnDeleteClickListener { deletedCountry ->
+            FavoritesManager.removeFavoriteCountry(requireContext(), deletedCountry)
+            val favoriteCountries = FavoritesManager.getFavoriteCountries(requireContext())
+            favoritesAdapter.setFavoriteCountries(favoriteCountries)
+        }
+
         return view
     }
 
@@ -34,3 +42,4 @@ class FavoritesFragment : Fragment() {
         favoritesAdapter.setFavoriteCountries(favoriteCountries)
     }
 }
+
