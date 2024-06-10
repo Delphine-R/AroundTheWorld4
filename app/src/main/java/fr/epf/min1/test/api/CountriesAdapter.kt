@@ -3,6 +3,7 @@ package fr.epf.min1.test.api
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -35,12 +36,17 @@ class CountriesAdapter(private val onItemClick: (Country) -> Unit) : RecyclerVie
     inner class CountryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val countryNameTextView: TextView = itemView.findViewById(R.id.countryNameTextView)
         private val countryFlagImageView: ImageView = itemView.findViewById(R.id.countryFlagImageView)
+        private val detailsButton: Button = itemView.findViewById(R.id.country_details_button)
 
         fun bind(country: Country) {
             countryNameTextView.text = country.name
             Picasso.get().load(country.flags.png).into(countryFlagImageView)
 
             itemView.setOnClickListener {
+                onItemClick(country)
+            }
+
+            detailsButton.setOnClickListener {
                 onItemClick(country)
             }
         }
