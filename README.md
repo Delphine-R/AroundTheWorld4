@@ -59,5 +59,4 @@ This project is licensed under the MIT License - see the `LICENSE.md` file for d
 ## Acknowledgments
 
 - Thanks to the Android community for the great resources and support.
-
-Please note that this is a basic template for a README file. You may need to modify it according to your project's specific requirements.
+- Thanks to the prof de Materiels Mobiles.
