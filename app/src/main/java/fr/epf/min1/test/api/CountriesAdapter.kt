@@ -10,7 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import fr.epf.min1.test.R
 
-class CountriesAdapter(private val onItemClick: (Country) -> Unit) : RecyclerView.Adapter<CountriesAdapter.CountryViewHolder>() {
+class CountriesAdapter(
+    private val onItemClick: (Country) -> Unit,
+    private val onFavoriteClicked: (Country) -> Unit
+): RecyclerView.Adapter<CountriesAdapter.CountryViewHolder>() {
 
     private var countries: List<Country> = emptyList()
 
@@ -37,6 +40,7 @@ class CountriesAdapter(private val onItemClick: (Country) -> Unit) : RecyclerVie
         private val countryNameTextView: TextView = itemView.findViewById(R.id.countryNameTextView)
         private val countryFlagImageView: ImageView = itemView.findViewById(R.id.countryFlagImageView)
         private val detailsButton: Button = itemView.findViewById(R.id.country_details_button)
+        private val favoriteButton: Button = itemView.findViewById(R.id.favorite_button)
 
         fun bind(country: Country) {
             countryNameTextView.text = country.name
@@ -48,6 +52,10 @@ class CountriesAdapter(private val onItemClick: (Country) -> Unit) : RecyclerVie
 
             detailsButton.setOnClickListener {
                 onItemClick(country)
+            }
+
+            favoriteButton.setOnClickListener {
+                onFavoriteClicked(country)
             }
         }
     }

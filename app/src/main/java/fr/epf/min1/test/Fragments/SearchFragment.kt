@@ -65,7 +65,10 @@ class SearchFragment : Fragment() {
         searchButton = view.findViewById(R.id.searchButton)
         countriesRecyclerView = view.findViewById(R.id.countriesRecyclerView)
         countriesRecyclerView.layoutManager = LinearLayoutManager(context)
-        countriesAdapter = CountriesAdapter { country -> onCountryClicked(country) }
+        countriesAdapter = CountriesAdapter(
+            onItemClick = { country -> onCountryClicked(country) },
+            onFavoriteClicked = { onFavoriteClicked() }
+        )
         countriesRecyclerView.adapter = countriesAdapter
 
         searchButton.setOnClickListener {
@@ -105,6 +108,14 @@ class SearchFragment : Fragment() {
         val detailsFragment = DetailsFragment.newInstance(country)
         parentFragmentManager.beginTransaction()
             .replace(R.id.container, detailsFragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun onFavoriteClicked() {
+        val favoritesFragment = FavoritesFragment()
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.container, favoritesFragment)
             .addToBackStack(null)
             .commit()
     }

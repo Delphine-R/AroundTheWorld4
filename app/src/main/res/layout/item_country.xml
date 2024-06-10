@@ -33,4 +33,14 @@
         app:layout_constraintTop_toTopOf="@id/countryFlagImageView"
         app:layout_constraintBottom_toBottomOf="@id/countryFlagImageView" />
 
+    <Button
+        android:id="@+id/favorite_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add to Favorites"
+        app:layout_constraintStart_toEndOf="@id/country_details_button"
+        app:layout_constraintTop_toTopOf="@id/countryFlagImageView"
+        app:layout_constraintBottom_toBottomOf="@id/countryFlagImageView" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
