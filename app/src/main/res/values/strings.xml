@@ -8,4 +8,5 @@
     <string name="search_button_text">Search</string>
     <string name="country_flag">country_flag_alt</string>
     <string name="question_search">What Country are you looking for?</string>
+    <string name="country_name">Country Name</string>
 </resources>
